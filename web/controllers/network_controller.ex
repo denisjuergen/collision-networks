@@ -18,4 +18,9 @@ defmodule NetworkCollisions.NetworksController do
     network = Enum.reduce(more, Network.make(node), &Network.include(&2, &1))
     json conn, NetworkCollisions.Store.get |> NetworkSet.contains(network)
   end
+
+  def intersects(conn, %{"nodes" => [node | more]}) do
+    network = Enum.reduce(more, Network.make(node), &Network.include(&2, &1))
+    json conn, NetworkCollisions.Store.get |> NetworkSet.containsAny(network)
+  end
 end
