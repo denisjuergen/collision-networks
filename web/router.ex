@@ -10,6 +10,7 @@ defmodule NetworkCollisions.Router do
 
     scope "/networks" do
       get "/", NetworksController, :index
+      get "/collides", NetworksController, :collides
       post "/", NetworksController, :update
     end
   end

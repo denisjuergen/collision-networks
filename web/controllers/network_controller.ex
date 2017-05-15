@@ -13,4 +13,9 @@ defmodule NetworkCollisions.NetworksController do
     NetworkCollisions.Store.update(updated)
     json conn, NetworkSet.flatten(updated)
   end
+
+  def collides(conn, %{"nodes" => [node | more]}) do
+    network = Enum.reduce(more, Network.make(node), &Network.include(&2, &1))
+    json conn, NetworkCollisions.Store.get |> NetworkSet.contains(network)
+  end
 end
