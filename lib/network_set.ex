@@ -17,7 +17,7 @@ defmodule NetworkSet do
   end
 
   defp optimize([head | tail]) do
-    {match, remainder} = Enum.split_with(tail, &Network.collides(&1, head))
+    {match, remainder} = Enum.split_with(tail, &Network.intersects(&1, head))
     make(Enum.reduce(match, head, &Network.union/2)) ++ optimize(remainder)
   end
 
@@ -30,7 +30,7 @@ defmodule NetworkSet do
   end
 
   def contains([head | tail], fragment) do
-    Network.intersects(head, fragment) || contains(tail, fragment)
+    Network.collides(head, fragment) || contains(tail, fragment)
   end
 
   def contains(_, _) do
@@ -38,7 +38,7 @@ defmodule NetworkSet do
   end
 
   def containsAny([head | tail], fragment) do
-    Network.collides(head, fragment) || containsAny(tail, fragment)
+    Network.intersects(head, fragment) || containsAny(tail, fragment)
   end
 
   def containsAny(_, _) do

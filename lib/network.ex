@@ -56,11 +56,11 @@ defmodule Network do
     callback.(node) && all(left, callback) && all(right, callback)
   end
 
-  def collides(network_a, network_b) do
+  def intersects(network_a, network_b) do
     any(network_a, &contains(network_b, &1))
   end
 
-  def intersects(network_a, network_b) do
+  def collides(network_a, network_b) do
     all(network_b, &contains(network_a, &1))
   end
 

@@ -139,10 +139,10 @@ defmodule NetworkTest do
     assert !Network.all(network, &(&1 <= 'd'))
   end
 
-  test "collides of networks [a, b, c] and [c, d, e] returns true" do
+  test "collides of networks [a, b, c] and [c, d, e] returns false" do
     network_a = Network.make('a') |> Network.include('b') |> Network.include('c')
     network_b = Network.make('c') |> Network.include('d') |> Network.include('e')
-    assert Network.collides(network_a, network_b)
+    assert !Network.collides(network_a, network_b)
   end
 
   test "collides of networks [a, b] and [c, d, e] returns false" do
@@ -151,10 +151,10 @@ defmodule NetworkTest do
     assert !Network.collides(network_a, network_b)
   end
 
-  test "collides of networks [a, b] and nil returns false" do
+  test "collides of networks [a, b] and nil returns true" do
     network_a = Network.make('a') |> Network.include('b')
     network_b = nil
-    assert !Network.collides(network_a, network_b)
+    assert Network.collides(network_a, network_b)
   end
 
   test "collides of networks nil and [c, d, e] returns false" do
@@ -169,15 +169,15 @@ defmodule NetworkTest do
     assert Network.intersects(network_a, network_b)
   end
 
-  test "intersects of networks [a] and [a, b] returns false" do
+  test "intersects of networks [a] and [a, b] returns true" do
     network_a = Network.make('a')
     network_b = Network.make('a') |> Network.include('b')
-    assert !Network.intersects(network_a, network_b)
+    assert Network.intersects(network_a, network_b)
   end
 
-  test "intersects of networks [a, b, c] and nil returns true" do
+  test "intersects of networks [a, b, c] and nil returns false" do
     network_a = Network.make('a') |> Network.include('b') |> Network.include('c')
     network_b = nil
-    assert Network.intersects(network_a, network_b)
+    assert !Network.intersects(network_a, network_b)
   end
 end
