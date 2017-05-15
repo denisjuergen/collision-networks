@@ -57,11 +57,11 @@ defmodule Network do
   end
 
   def collides(network_a, network_b) do
-    any(network_a, &(contains(network_b, &1)))
+    any(network_a, &contains(network_b, &1))
   end
 
   def intersects(network_a, network_b) do
-    all(network_b, &(contains(network_a, &1)))
+    all(network_b, &contains(network_a, &1))
   end
 
   def list(nil) do

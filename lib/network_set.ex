@@ -17,8 +17,8 @@ defmodule NetworkSet do
   end
 
   defp optimize([head | tail]) do
-    {match, remainder} = Enum.split_with(tail, &(Network.collides(&1, head)))
-    [Enum.reduce(match, head, &(Network.union/2))] ++ optimize(remainder)
+    {match, remainder} = Enum.split_with(tail, &Network.collides(&1, head))
+    make(Enum.reduce(match, head, &Network.union/2)) ++ optimize(remainder)
   end
 
   defp optimize(list) do
@@ -26,7 +26,7 @@ defmodule NetworkSet do
   end
 
   def flatten(set) do
-    Enum.map(set, fn network -> Network.list(network) end) |> Enum.reverse
+    Enum.map(set, &Network.list/1) |> Enum.reverse
   end
 
   def contains([head | tail], fragment) do
