@@ -4,11 +4,13 @@ defmodule NetworkCollisions.NetworksController do
   @moduledoc false
 
   def index(conn, _) do
-    set = case NetworkCollisions.Store.get do
-      [] -> Network.make("a") |> NetworkSet.make
-      set -> NetworkSet.append(set, Network.make(?a..?z |> Enum.map(&List.to_string([&1])) |> Enum.random))
-    end
-    NetworkCollisions.Store.update(set)
-    json conn, NetworkSet.flatten(set)
+    json conn, NetworkCollisions.Store.get |> NetworkSet.flatten
+  end
+
+  def update(conn, %{"nodes" => [node | more]}) do
+    network = Enum.reduce(more, Network.make(node), &Network.include(&2, &1))
+    updated = NetworkCollisions.Store.get |> NetworkSet.append(network)
+    NetworkCollisions.Store.update(updated)
+    json conn, NetworkSet.flatten(updated)
   end
 end
