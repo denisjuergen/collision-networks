@@ -7,5 +7,9 @@ defmodule NetworkCollisions.Router do
 
   scope "/api", NetworkCollisions do
     pipe_through :api
+
+    scope "/networks" do
+      get "/", NetworksController, :index
+    end
   end
 end

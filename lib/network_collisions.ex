@@ -11,7 +11,7 @@ defmodule NetworkCollisions do
       # Start the endpoint when the application starts
       supervisor(NetworkCollisions.Endpoint, []),
       # Start your own worker by calling: NetworkCollisions.Worker.start_link(arg1, arg2, arg3)
-      # worker(NetworkCollisions.Worker, [arg1, arg2, arg3]),
+      worker(NetworkCollisions.Store, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
