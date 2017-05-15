@@ -25,6 +25,10 @@ defmodule NetworkSet do
     list
   end
 
+  def flatten(set) do
+    Enum.map(set, fn network -> Network.list(network) end) |> Enum.reverse
+  end
+
   def contains([head | tail], fragment) do
     Network.intersects(head, fragment) || contains(tail, fragment)
   end

@@ -50,6 +50,14 @@ defmodule NetworkSetTest do
     assert set == [@network_hijklmnop]
   end
 
+  test "flatten a network set containing the networks [a, b, c] and [d, e, f]" do
+    assert NetworkSet.make(@network_abc) |> NetworkSet.append(@network_def) |> NetworkSet.flatten == [Network.list(@network_abc), Network.list(@network_def)]
+  end
+
+  test "flatten an optimized network set containing the networks [a, b, c] and [c, d, e]" do
+    assert NetworkSet.make(@network_abc) |> NetworkSet.append(@network_cde) |> NetworkSet.flatten == [Network.list(@network_abcde)]
+  end
+
   test "search a network set from networks [a, b, c] and [d, e, f] for network [e]" do
     assert NetworkSet.make(@network_abc) |> NetworkSet.append(@network_def) |> NetworkSet.contains({'e', nil, nil})
   end
