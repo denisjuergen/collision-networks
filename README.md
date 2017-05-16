@@ -41,3 +41,9 @@ mix phoenix.server
 ```bash
 mix networks_file.generate --help
 ```
+
+## Feeding network node pairs file into the Rest API
+
+```bash
+mix networks_file.feed --help
+```
