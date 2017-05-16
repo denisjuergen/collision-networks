@@ -35,3 +35,9 @@ The API starts at localhost:4000, by default; make sure that host and port combi
 ```bash
 mix phoenix.server
 ```
+
+## Generating random network node pairs file
+
+```bash
+mix networks_file.generate --help
+```
