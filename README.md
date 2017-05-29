@@ -47,3 +47,10 @@ mix networks_file.generate --help
 ```bash
 mix networks_file.feed --help
 ```
+
+## Rest API documentation
+
+- [List networks](rest-api-list-networks.md)
+- [Create networks](rest-api-create-networks.md)
+- [Check for collisions](rest-api-check-collisions.md)
+- [Check for intersections](rest-api-check-intersections.md)
